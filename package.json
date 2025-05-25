@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
+    "multer": "^2.0.0",
+    "paypal-rest-sdk": "^1.8.1",
+    "react-redux": "^9.2.0"
+  }
+}
