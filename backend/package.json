@@ -25,8 +25,7 @@
     "multer": "^1.4.5-lts.1",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
-    "passport-jwt": "^4.0.1",
-    "paypal-rest-sdk": "^1.8.1"
+    "passport-jwt": "^4.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

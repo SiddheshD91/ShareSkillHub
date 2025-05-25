@@ -7,7 +7,6 @@ import Login from './components/Login'
 import Register from './components/Register'
 import CourseDetail from './components/CourseDetail'
 import AddCourse from './components/AddCourse';
-import PaymentPage from './components/PaymentPage';
 import EditCourse from './components/EditCourse';
 import './App.css'
 
@@ -37,8 +36,6 @@ function App() {
               path="/add-course"
               element={userRole === 'instructor' ? <AddCourse /> : <Navigate to="/login" replace />}
             />
-            {/* Add route for PaymentPage with course ID parameter */}
-            <Route path="/payment/:courseId" element={<PaymentPage />} />
             {/* Add route for EditCourse with course ID parameter, protected for instructors and admins */}
             <Route 
               path="/edit-course/:courseId"

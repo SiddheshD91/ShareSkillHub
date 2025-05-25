@@ -1,13 +1,5 @@
 const Course = require('../models/Course');
 const User = require('../models/User');
-const paypal = require('paypal-rest-sdk');
-
-// Configure PayPal
-paypal.configure({
-    'mode': process.env.PAYPAL_MODE || 'sandbox', // 'sandbox' or 'live'
-    'client_id': process.env.PAYPAL_CLIENT_ID,
-    'secret': process.env.PAYPAL_SECRET
-});
 
 // Enroll a student in a course
 exports.enrollStudent = async (req, res) => {
@@ -28,24 +20,15 @@ exports.enrollStudent = async (req, res) => {
             return res.status(400).json({ message: 'Student already enrolled in this course' });
         }
 
-        // For free courses, directly enroll
-        if (course.price === 0) {
-             // Add the student to the course's enrolledStudents list
-            course.enrolledStudents.push(studentId);
-            await course.save();
+        // Add the student to the course's enrolledStudents list
+        course.enrolledStudents.push(studentId);
+        await course.save();
 
-            // Add the course to the student's enrolledCourses list
-            student.enrolledCourses.push(courseId);
-            await student.save();
+        // Add the course to the student's enrolledCourses list
+        student.enrolledCourses.push(courseId);
+        await student.save();
 
-            return res.json({ message: 'Enrollment successful', course });
-        } else {
-             // For paid courses, proceed with payment (handled by frontend after creating order)
-             // This endpoint is now primarily for free enrollment.
-             // The paid enrollment flow starts with createPaypalOrder.
-             return res.status(400).json({ message: 'This is a paid course, please use the PayPal payment flow.' });
-        }
-
+        return res.json({ message: 'Enrollment successful', course });
 
     } catch (error) {
         res.status(500).json({ message: 'Error enrolling student', error: error.message });
